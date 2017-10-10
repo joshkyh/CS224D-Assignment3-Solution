@@ -22,7 +22,7 @@ class Config(object):
     early_stopping = 2
     anneal_threshold = 0.99
     anneal_by = 1.5
-    max_epochs = 30
+    max_epochs = 3#30
     lr = 0.01
     l2 = 0.02
     model_name = 'rnn_embed=%d_l2=%f_lr=%f.weights'%(embed_size, l2, lr)
@@ -32,7 +32,7 @@ class RNN_Model():
 
     def load_data(self):
         """Loads train/dev/test data and builds vocabulary."""
-        self.train_data, self.dev_data, self.test_data = tr.simplified_data(700, 100, 200)
+        self.train_data, self.dev_data, self.test_data = tr.simplified_data(10, 100, 200) #700, 100, 200
 
         # build vocab from training data
         self.vocab = Vocab()
@@ -303,14 +303,17 @@ class RNN_Model():
 
             #save if model has improved on val
             if val_loss < best_val_loss:
-                 shutil.copyfile('./weights/%s.temp'%self.config.model_name, './weights/%s'%self.config.model_name)
+                 #shutil.copyfile('./weights/%s.temp'%self.config.model_name, './weights/%s'%self.config.model_name)
+                 shutil.copyfile('./weights/%s.temp.data-00000-of-00001'%self.config.model_name, './weights/%s.data-00000-of-00001'%self.config.model_name)
+                 shutil.copyfile('./weights/%s.temp.index'%self.config.model_name, './weights/%s.index'%self.config.model_name)
+                 shutil.copyfile('./weights/%s.temp.meta'%self.config.model_name, './weights/%s.meta'%self.config.model_name)
                  best_val_loss = val_loss
                  best_val_epoch = epoch
 
             # if model has not imprvoved for a while stop
             if epoch - best_val_epoch > self.config.early_stopping:
                 stopped = epoch
-                #break
+                break
         if verbose:
                 sys.stdout.write('\r')
                 sys.stdout.flush()
