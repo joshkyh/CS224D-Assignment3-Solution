@@ -1,10 +1,10 @@
 # CS224D-Assignment3-Solution
-Edited to run in Python 3.
-
+Scripts edited to run in Python 3.
 
 # Assignment 3: Recursive Neural Networks
+Assignment description: http://cs224d.stanford.edu/assignment3/index.html
 
-These are the files to be runned in Python 3:
+Files to be runned in Python 3:
 * rnnPY3.py
 * treePY3.py
 * utilsPY3.py
